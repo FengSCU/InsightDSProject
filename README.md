@@ -19,7 +19,7 @@ Identifying the neighbors will help home buyers more focus that shorten the purc
 ### Raw Datasets
 I use following datasets for the of project:
 
-1. Mortgage datasets from Consumer Financial Protection Bureau
+1.Mortgage datasets from Consumer Financial Protection Bureau
 
 This dataset contains millions of records of home loan application in the US. It contains loan applicant demographic information (gender, race, income), property information associated with the loan, and loan details(loan amount, loan to value ratio, interest_rate, etc).
 
@@ -27,7 +27,7 @@ This dataset contains millions of records of home loan application in the US. It
 
 This dataset includes daily incident records published by City police. It tells about the incident datetime, incident category, and incident location.
 
-3. School datasets from greatschool: 
+3.School datasets from greatschool: 
 
 This dataset contains school records, such as enrollment, rating, and names.
 
