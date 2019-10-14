@@ -1,0 +1,61 @@
+mortgage:
+  rawdata: "s3a://insight-project/mortgage-data/"
+  latest_version: 'v2'
+  tract_table_name: 'production_mortgage_tract'
+  years:
+    2018: 'v2'
+    2017: 'v1'
+    2016: 'v1'
+    2015: 'v1'
+    2014: 'v1'
+    2013: 'v1'
+    2012: 'v1'
+    2011: 'v1'
+    2010: 'v1'
+    2009: 'v1'
+    2008: 'v1'
+    2007: 'v1'
+census:
+  rawdata: "s3a://insight-project/census-data/tract_place.csv"
+  table_name: "census_data"
+cities:
+  SF:
+    cityname: "San Francisco"
+    countyname: "San Francisco county"
+    countycode: "06075"
+    state: "CA"
+    mortgage_data_table_name: "production_mortgage_data"
+    mortgage_rank_table_name: "production_mortgage_rankn"
+    crime-rawdata:
+      v1: "s3a://insight-project/crime-data/SF/SF_Police_Department_Incident_Reports__Historical_2003_to_May_2018.csv"
+      v2: "s3a://insight-project/crime-data/SF/SF_Police_Department_Incident_Reports__2018_to_Present.csv"
+    school-rawdata:
+      "s3a://insight-project/school/San-Francisco-school.xml"
+    latest_version: 'v2'
+    years:
+      2019: 'v2'
+      2018: 'v2'
+      2017: 'v1'
+      2016: 'v1'
+      2015: 'v1'
+      2014: 'v1'
+      2013: 'v1'
+      2012: 'v1'
+      2011: 'v1'
+      2010: 'v1'
+      2009: 'v1'
+      2008: 'v1'
+      2007: 'v1'
+  LA:
+    cityname: "Los Angeles"
+    countyname: "Los Angeles county"
+    countycode: "06037"
+    state: "CA"
+    mortgage_data_table_name: "production_mortgage_data_LA"
+    mortgage_rank_table_name: "production_mortgage_rankn_LA"
+    crime-rawdata:
+      v1: "s3a://insight-project/crime-data/LA/LA_Crime_Data_from_2010_to_Present.csv"
+    school-rawdata:
+      "s3a://insight-project/school/Los-Angeles-school.xml"
+    latest_version: 'v1'
+    years:
