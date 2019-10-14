@@ -6,8 +6,10 @@ Home purchase is usually long and complicated process, even during research phas
 To illustrate, users can use the dashboard to check:
 
 1.What's the most pupular areas people buy homes in their income level? 
-1.1 Income could be a indicator as affortablity, since income is the major factor to determine the loan people can get. 
-1.2 Define the area/neighborhood: I use 'census tract' as the baseline for neighbor/area.'Census Tracts' are small, relatively permanent statistical subdivisions of a county that defined by Census Bureau. 
+
+a)Income could be a indicator as affortablity, since income is the major factor to determine the loan people can get. 
+
+b)Define the area/neighborhood: I use 'census tract' as the baseline for neighbor/area. **Census Tracts** are small, relatively permanent statistical subdivisions of a county that defined by Census Bureau. 
 
 2.How many crime/incident happened in the areas? Does the crime increase or decrease over years?
 
