@@ -3,7 +3,7 @@ def read_from_csv(spark, filepath):
     source file has header
     """
     df = spark.read.format("csv"
-                           ).option("header", "true").option("inferSchema", "true").load(filepath)
+                           ).option("header", "true").load(filepath)
     return df
 
 

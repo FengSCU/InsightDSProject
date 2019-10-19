@@ -24,7 +24,6 @@ def main():
     city_list = conf.get_city_list()
 
     year_to_process = 2018
-    month_to_process = 8
 
     print("Processing Mortgage Data")
     df = process_mortgage.read_mortgage_data(spark, year_to_process)
@@ -33,7 +32,7 @@ def main():
 
     print("Processing Crime Data")
     for city in city_list:
-        process_crime.process_crime_data(spark, conf, city, year_to_process, month_to_process)
+        process_crime.process_crime_data(spark, conf, city, year_to_process)
 
     print("Processing School Data")
     for city in city_list:

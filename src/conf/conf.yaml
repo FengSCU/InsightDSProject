@@ -2,6 +2,23 @@ mortgage:
   rawdata: "s3a://insight-project/mortgage-data/"
   latest_version: 'v2'
   tract_table_name: 'production_mortgage_tract'
+  mortgage-schema:
+    v1:
+      activity_year: 'as_of_year'
+      loan_amount: 'loan_amount_000s'
+      census_tract: 'census_tract_number'
+      income: 'applicant_income_000s'
+      tract_population: 'population'
+      tract_owner_occupied_units: 'number_of_owner_occupied_units'
+      tract_one_to_four_family_homes: 'number_of_1_to_4_family_units'
+    v2:
+      activity_year: 'activity_year'
+      loan_amount: 'loan_amount'
+      census_tract: 'census_tract'
+      income: 'income'
+      tract_population: 'tract_population'
+      tract_owner_occupied_units: 'tract_owner_occupied_units'
+      tract_one_to_four_family_homes: 'tract_one_to_four_family_homes'
   years:
     2018: 'v2'
     2017: 'v1'
@@ -29,6 +46,21 @@ cities:
     crime-rawdata:
       v1: "s3a://insight-project/crime-data/SF/SF_Police_Department_Incident_Reports__Historical_2003_to_May_2018.csv"
       v2: "s3a://insight-project/crime-data/SF/SF_Police_Department_Incident_Reports__2018_to_Present.csv"
+    crime-schema:
+      v1:
+        date: 'Date'
+        latitude: 'Y'
+        longitude: 'X'
+        category: 'Category'
+      v2:
+        date: 'Incident Date'
+        latitude: 'Latitude'
+        longitude: 'Longitude'
+        category: 'Category'
+    date-format:
+      v1: 'MM/dd/yyyy'
+      v2: 'yyyy/MM/dd'
+    crime_data_table_name: 'production_crime_data'
     school-rawdata:
       "s3a://insight-project/school/San-Francisco-school.xml"
     latest_version: 'v2'
@@ -55,7 +87,17 @@ cities:
     mortgage_rank_table_name: "production_mortgage_rankn_LA"
     crime-rawdata:
       v1: "s3a://insight-project/crime-data/LA/LA_Crime_Data_from_2010_to_Present.csv"
+    crime-schema:
+      v1:
+        date: 'DATE OCC'
+        latitude: 'LAT'
+        longitude: 'LON'
+        category: 'Crm Cd Desc'
+    date-format:
+      v1: 'MM/dd/yyyy HH:mm:ss'
+    crime_data_table_name: 'production_crime_data_la'
     school-rawdata:
       "s3a://insight-project/school/Los-Angeles-school.xml"
     latest_version: 'v1'
     years:
+      2018: 'v1'

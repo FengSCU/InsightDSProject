@@ -2,8 +2,8 @@ from pyspark.sql.functions import udf
 from pyspark.sql.functions import col
 
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType, DoubleType
-from src.utils import reader
-from src.utils import postgres
+from utils import reader
+from utils import postgres
 
 schema = StructType([
     StructField("activity_year", IntegerType(), True),
@@ -42,30 +42,20 @@ def get_data_for_city(config, year, city, df):
 
 def transform_mortgage_data(config, year, city, df):
     county_code = config.get_county_code_for_city(city)
+    data_schema = config.get_mortgage_data_schema_mapping(year)
     df_select = df
-    if year <= 2017:
-        df_select = df.select(['as_of_year', 'loan_amount_000s', 'census_tract_number', 'applicant_income_000s',
-                                     'population', 'number_of_owner_occupied_units',
-                                     'number_of_1_to_4_family_units'])
-    elif year >= 2018:
-        df_select = df.select(['activity_year', 'loan_amount', 'census_tract', 'income',
-                                     'tract_population', 'tract_owner_occupied_units',
-                                     'tract_one_to_four_family_homes'])
-    df_transform = df_select
-    if year <= 2017:
-        df_select = df_select.withColumnRenamed('as_of_year', 'activity_year')
-        df_select = df_select.withColumnRenamed('loan_amount_000s', 'loan_amount')
-        df_select = df_select.withColumnRenamed('census_tract_number', 'census_tract')
-        df_select = df_select.withColumnRenamed('applicant_income_000s', 'income')
-        df_select = df_select.withColumnRenamed('population', 'tract_population')
-        df_select = df_select.withColumnRenamed('number_of_owner_occupied_units', 'tract_owner_occupied_units')
-        df_select = df_select.withColumnRenamed('number_of_1_to_4_family_units', 'tract_one_to_four_family_homes')
-        def transform_tract_num(tract_num):
-            """Change the tract format that same as 2018 tract"""
+    for target, source in data_schema.items():
+        df_select = df_select.withColumnRenamed(source, target)
+
+    def transform_tract_num(tract_num):
+        """Change the tract format that same as 2018 tract"""
+        if tract_num is None or len(tract_num) == 11:
+            tract = tract_num
+        else:
             tract = county_code + str(tract_num).replace('.', '')
-            return tract
-        udf_transform_tract_num = udf(transform_tract_num, StringType())
-        df_transform = df_select.withColumn('census_tract', udf_transform_tract_num('census_tract'))
+        return tract
+    udf_transform_tract_num = udf(transform_tract_num, StringType())
+    df_transform = df_select.withColumn('census_tract', udf_transform_tract_num('census_tract'))
     df_transform = df_transform.where(col("activity_year") == year)
     return df_transform
 

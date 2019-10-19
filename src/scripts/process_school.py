@@ -1,5 +1,5 @@
-from src.utils import reader
-from src.utils import postgres
+from utils import reader
+from utils import postgres
 from pyspark.sql.functions import udf
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType, DoubleType
 
