@@ -1,7 +1,7 @@
 mortgage:
   rawdata: "s3a://insight-project/mortgage-data/"
   latest_version: 'v2'
-  tract_table_name: 'production_mortgage_tract'
+  tract_table_name: 'production_v2_mortgage_tract'
   mortgage-schema:
     v1:
       activity_year: 'as_of_year'
@@ -34,15 +34,16 @@ mortgage:
     2007: 'v1'
 census:
   rawdata: "s3a://insight-project/census-data/tract_place.csv"
-  table_name: "census_data"
+  table_name: "production_v2_census_data"
 cities:
   SF:
     cityname: "San Francisco"
     countyname: "San Francisco county"
     countycode: "06075"
     state: "CA"
-    mortgage_data_table_name: "production_mortgage_data"
-    mortgage_rank_table_name: "production_mortgage_rankn"
+    mortgage_data_table_name: "production_v2_mortgage_data_SF"
+    mortgage_rank_table_name: "production_v2_mortgage_rankn_SF"
+    school_table_name: "production_v2_school_SF"
     crime-rawdata:
       v1: "s3a://insight-project/crime-data/SF/SF_Police_Department_Incident_Reports__Historical_2003_to_May_2018.csv"
       v2: "s3a://insight-project/crime-data/SF/SF_Police_Department_Incident_Reports__2018_to_Present.csv"
@@ -56,11 +57,11 @@ cities:
         date: 'Incident Date'
         latitude: 'Latitude'
         longitude: 'Longitude'
-        category: 'Category'
+        category: 'Incident Category'
     date-format:
       v1: 'MM/dd/yyyy'
       v2: 'yyyy/MM/dd'
-    crime_data_table_name: 'production_crime_data'
+    crime_data_table_name: 'production_v2_crime_data_SF'
     school-rawdata:
       "s3a://insight-project/school/San-Francisco-school.xml"
     latest_version: 'v2'
@@ -83,8 +84,9 @@ cities:
     countyname: "Los Angeles county"
     countycode: "06037"
     state: "CA"
-    mortgage_data_table_name: "production_mortgage_data_LA"
-    mortgage_rank_table_name: "production_mortgage_rankn_LA"
+    mortgage_data_table_name: "production_v2_mortgage_data_LA"
+    mortgage_rank_table_name: "production_v2_mortgage_rankn_LA"
+    school_table_name: "production_v2_school_LS"
     crime-rawdata:
       v1: "s3a://insight-project/crime-data/LA/LA_Crime_Data_from_2010_to_Present.csv"
     crime-schema:
@@ -95,7 +97,7 @@ cities:
         category: 'Crm Cd Desc'
     date-format:
       v1: 'MM/dd/yyyy HH:mm:ss'
-    crime_data_table_name: 'production_crime_data_la'
+    crime_data_table_name: 'production_v2_crime_data_LA'
     school-rawdata:
       "s3a://insight-project/school/Los-Angeles-school.xml"
     latest_version: 'v1'

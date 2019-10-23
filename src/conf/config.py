@@ -88,7 +88,7 @@ class Config(object):
         city_config = self._config['cities'][city]
         return city_config['countycode']
 
-    def get_shcool_data_file(self, city):
+    def get_school_data_file(self, city):
         city_config = self._config['cities'][city]
         school_src_files = city_config['school-rawdata']
         return school_src_files
@@ -101,3 +101,6 @@ class Config(object):
 
     def get_mortgage_rank_table_name_for_city(self, city):
         return self._config['cities'][city]['mortgage_rank_table_name']
+
+    def get_school_table_name_for_city(self, city):
+        return self._config['cities'][city]['school_table_name']

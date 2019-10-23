@@ -35,6 +35,7 @@ def process_school_data(spark, config, city):
 
     df_school_select_w_tract = df_school_select.withColumn("tract", udfGetTractFromGeo("lon", "lat"))
 
-    postgres.save_to_DB(df_school_select_w_tract, "school", "overrite")
+    table_name = config.get_school_table_name_for_city
+    postgres.save_to_DB(spark, df_school_select_w_tract, table_name, "overrite")
 
     return

@@ -20,7 +20,7 @@ def read_crime_data(spark, config, city, year):
     return df
 
 
-def transform_crime_data(config, city, current_year, df):
+def transform_crime_data(config, city, current_year, current_month, df):
     cityname = config.get_city_name(city)
     schema = config.get_crime_data_schema_mapping(city, current_year)
     date_format = config.get_crime_date_format(city, current_year)
@@ -29,22 +29,23 @@ def transform_crime_data(config, city, current_year, df):
     for target, source in schema.items():
         df_select = df_select.withColumnRenamed(source, target)
     df_select = df_select.withColumn('year', year(from_unixtime(unix_timestamp('date', date_format))))
+    df_select = df_select.withColumn('month', month(from_unixtime(unix_timestamp('date', date_format))))
     df_transform = df_select.select(
-                ['year', 'date',
+                ['year', 'month', 'date',
                  'category', 'latitude', 'longitude']
-            ).where((col("longitude").isNotNull() | col("latitude").isNotNull())
+            ).where((col("longitude").isNotNull()) & (col("latitude").isNotNull())
                     ).sort(['longitude', 'latitude'])
-    # if current_year != '' and current_year is not None:
-    #     df_transform = df_transform.where(col("year") == current_year)
-    #     if current_month != '' and current_month is not None:
-    #         df_transform = df_transform.where(col("month") == current_month)
+    if current_year != '' and current_year is not None:
+        df_transform = df_transform.where(col("year") == current_year)
+        if current_month != '' and current_month is not None:
+            df_transform = df_transform.where(col("month") == current_month)
     return df_transform
 
 
-def save_crime_data(city, current_year, df):
+def save_crime_data(city, current_year, current_month, df):
     #postgres.save_to_DB(spark, df, "crime_detail", "append")
-    dest = "s3a://insight-project/production_crime_detail/%s/%s/" % (city, current_year)
-    df.repartition(6).write.parquet(dest, mode='overwrite')
+    dest = "s3a://insight-project/productionv2_crime_detail/%s/%s/%s" % (city, current_year, current_month)
+    df.write.parquet(dest, mode='overwrite')
 
 
 def calculate_crime_data(spark, config, city, df):
@@ -70,10 +71,10 @@ def calculate_crime_data(spark, config, city, df):
     postgres.save_to_DB(spark, df_crime_tract_final, crime_data_table_name, "append")
 
 
-def process_crime_data(spark, config, city, year_to_process):
+def process_crime_data(spark, config, city, year_to_process, month_to_process):
     df = read_crime_data(spark, config, city, year_to_process)
-    df_transform = transform_crime_data(config, city, year_to_process, df)
-    save_crime_data(spark, city, year_to_process, df_transform)
+    df_transform = transform_crime_data(config, city, year_to_process, month_to_process, df)
+    #save_crime_data(spark, city, year_to_process, month_to_process, df_transform)
     calculate_crime_data(spark, config, city, df_transform)
     return
 
