@@ -45,5 +45,3 @@ The datasets are extracted from web and store to S3, precessed by spark, and the
 
 This project is city-based project, I will use San Francisco city as an example to design the ETL pipeline.  
 
-## [Demo link](https://public.tableau.com/profile/feng.wang2440#!/vizhome/NFversion3_0/dashboardv2)
-
